@@ -29,9 +29,7 @@ Reads D from const. table (if required) and writes it into destination slot A.
 ## Global Table Ops
 
     OP       A       D
-
     NSSETS   var     str    ns[str] = var
-
     NSGETS   var     str    var = ns[str]
 
 NSSETS sets A to constant table string in namespace (this only exists in the VM).
@@ -56,7 +54,7 @@ programming language such as Clojure.
     MULVV	dst	var	var	    A = B * C
     DIVVV	dst	var	var	    A = B / C
     MODVV	dst	var	var	    A = B % C
-    POW	    dst	var	var	    A = B ^ C
+    POWVV   dst	var	var	    A = B ^ C
 
     ISLT	dst var	var	    A = B < C
     ISGE	dst var	var     A = B ≥ C
@@ -165,7 +163,7 @@ of arrays is 64bit. The array index `idx` is read from a variable slot.
     FUNCF   lit     -
     FUNCV   lit     -
 
-FUNCF & FUNV define a function with 'lit' fixed arguments. The FUNCV opcode
+FUNCF & FUNCV define a function with 'lit' fixed arguments. The FUNCV opcode
 defines a function which has an additional vararg argument.
 (defn [a b & c] ...) == FUNCV 2
 
