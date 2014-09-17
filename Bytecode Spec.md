@@ -23,20 +23,22 @@ Clojure Bytecode Spec
     CBOOL   dst     bool
     CNIL    dst     nil
     CFUNC   dst     fn
-    
+
 Reads D from const. table (if required) and writes it into destination slot A.
 
 ## Global Table Ops
 
     OP       A       D
 
-    NSSETS   var     str    ns[str] = var
+    NSSETS   var     const-str    ns[const-str] = var
 
-    NSGETS   var     str    var = ns[str]
+    NSGETS   dst     const-str    dst = ns[const-str]
 
-NSSETS sets A to constant table string in namespace (this only exists in the VM).
 
-NSGETS sets A to value of var (clojure var is toplevel definition) D.
+NSSETS creates top level definition called by constant table string D with value from A
+
+NSGETS reades top level definition called D and copys it to A
+
 
 ## Variable Slots
 
@@ -152,12 +154,13 @@ new arguments of the function.
 ## Arrays
 
     OP          A       B       C
+
     NEWARRAY    dst     size
-    GETARRAY    dst     src     idx     dst[idx] = src
-    SETARRAY    dst     src     idx     dst = src[idx]
+    GETARRAY    dst     array   idx     dst = array[idx]
+    SETARRAY    array   idx     val     array[idx] =  val
 
 Creates a new array of size `size` in the variable slot `dst`. The element size
-of arrays is 64bit. The array index `idx` is read from a variable slot.
+of arrays is 64bit. The array index `idx` is read from a variable slot, so is the `size`.
 
 ## Function Def
 
