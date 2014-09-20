@@ -1,8 +1,8 @@
 Clojure Bytecode Spec
 ======================
 
-    B	C	A	OP
-    D	  A	OP
+    B   C   A   OP
+    D       A   OP
 
 ## Tables
 
@@ -31,8 +31,8 @@ Reads D from const. table (if required) and writes it into destination slot A.
     OP       A       D
 
     NSSETS   var     const-str    ns[const-str] = var
-
     NSGETS   dst     const-str    dst = ns[const-str]
+
 
 NSSETS creates top level definition called by constant table string D with value from A
 
@@ -153,7 +153,6 @@ new arguments of the function.
 ## Arrays
 
     OP          A       B       C
-
     NEWARRAY    dst     size
     GETARRAY    dst     array   idx     dst = array[idx]
     SETARRAY    array   idx     val     array[idx] =  val
@@ -170,6 +169,16 @@ of arrays is 64bit. The array index `idx` is read from a variable slot, so is th
 FUNCF & FUNCV define a function with 'lit' fixed arguments. The FUNCV opcode
 defines a function which has an additional vararg argument.
 (defn [a b & c] ...) == FUNCV 2
+
+## Run-Time Behavior
+
+    OP      A       D
+    BREAK   -       -
+    EXIT    var     -
+    
+BREAK triggers a breakpoint. EXIT terminates the virtual machine, the variable
+in slot `var` indicates the status code. Nonzero status codes shall indicate
+abnormal termination.
 
 ## TODO
 
