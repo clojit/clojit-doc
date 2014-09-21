@@ -102,22 +102,22 @@ argument and so on. The return value of the call will be storred in 'base':
 
 
         clojure code: (let [ret (f arg0 arg1 arg2)])                     
-        emmited bytecode: CALL base 4
+        call instruction: CALL base 4
                                                       
                +------------+             (callee view)
-               |    other   |                          
+               |   other    |                          
                +------------+             +------------+
     base       |    ret     |           0 |    ret     |
-               +------------+             +------------+
+               +------------+   ---->     +------------+
     base + 1   |    func    |           1 |    func    |
                +------------+             +------------+
-    base + 2   |    arg0    | --CALL--> 2 |    arg0    |
+    base + 2   |    arg0    |           2 |    arg0    |
                +------------+             +------------+
     base + 3   |    arg1    |           3 |    arg1    |
                +------------+             +------------+
     base + lit |    arg2    |           4 |    arg2    |
                +------------+             +------------+
-                                        5 |   local0   |
+                                        5 |   locals   |
                 (caller view)             +------------+
 
 
