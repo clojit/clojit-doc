@@ -100,21 +100,26 @@ base is a offset on the variable belt, so that the slot nr 'base+1' is a referen
 to the function, 'base+2' is the first argument, 'base+lit' is the last
 argument and so on. The return value of the call will be storred in 'base':
 
-               +------------+
-               |    other   |
-               +------------+
-    base       |    ret     |
-               +------------+
-    base + 1   |    func    |
-               +------------+
-    base + 2   |    arg0    |
-               +------------+
-    base + 3   |    arg1    |
-               +------------+
-    base + lit |    arg2    |
-               +------------+
 
-    (let [ret (f arg0 arg1 arg2)])
+        clojure code: (let [ret (f arg0 arg1 arg2)])                     
+        emmited bytecode: CALL base 4
+                                                      
+               +------------+             (callee view)
+               |    other   |                          
+               +------------+             +------------+
+    base       |    ret     |           0 |    ret     |
+               +------------+             +------------+
+    base + 1   |    func    |           1 |    func    |
+               +------------+             +------------+
+    base + 2   |    arg0    | --CALL--> 2 |    arg0    |
+               +------------+             +------------+
+    base + 3   |    arg1    |           3 |    arg1    |
+               +------------+             +------------+
+    base + lit |    arg2    |           4 |    arg2    |
+               +------------+             +------------+
+                                        5 |   local0   |
+                (caller view)             +------------+
+
 
 The CALL instruction will set up the variable belt for the callee so that
 all parameters are in the right place. This means that for the callee its
