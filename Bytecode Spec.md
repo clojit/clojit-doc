@@ -93,16 +93,36 @@ Jumps to the relative target address `addr` if the value in slot `var` is truthy
     CALL    base    lit
     RET     var     -
 
-'lit' is the number of arguments.
+'lit' is the number of arguments, including the callee function (i.e. number
+of arguments plus one)
 
-base is a offset on the variable belt, so that the slot nr 'base' is a reference
-to the function, 'base+1' is the first argument, 'base+lit' is the last
-argument and so on.
+base is a offset on the variable belt, so that the slot nr 'base+1' is a reference
+to the function, 'base+2' is the first argument, 'base+lit' is the last
+argument and so on. The return value of the call will be storred in 'base':
+
+               +------------+
+               |    other   |
+               +------------+
+    base       |    ret     |
+               +------------+
+    base + 1   |    func    |
+               +------------+
+    base + 2   |    arg0    |
+               +------------+
+    base + 3   |    arg1    |
+               +------------+
+    base + lit |    arg2    |
+               +------------+
+
+    (let [ret (f arg0 arg1 arg2)])
 
 The CALL instruction will set up the variable belt for the callee so that
 all parameters are in the right place. This means that for the callee its
 return address is in slot 0, the function object for itself in slot 1 and its
-arguments in slot 2 and following slots.
+arguments in slot 2 and following slots. In other words: slot index 'base'
+of the caller will become slot index 0 for the callee.
+
+Data stored in slots after 'base+lit' will be overwritten by the call.
 
 The RET instruction will copy the value in `var` into the designated slot for
 the caller. RET will read out the return address from slot 0, replace it with
@@ -113,10 +133,6 @@ the contents of `var` and then jump to the return address.
 
 Calls the function stored on variable slot A, and applies the elements from
 vector B as argument for the function.
-
-
-TODO: Figure out if local variables of the caller are allowed to be stored
-after 'base'.
 
 ## Closures and Free Variables
 
