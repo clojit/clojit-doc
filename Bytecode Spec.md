@@ -101,11 +101,11 @@ to the function, 'base+2' is the first argument, 'base+lit' is the last
 argument and so on. The return value of the call will be storred in 'base':
 
 
-        clojure code: (let [ret (f arg0 arg1 arg2)])                     
+        clojure code: (let [ret (f arg0 arg1 arg2)])
         call instruction: CALL base 4
-                                                      
+
                +------------+             (callee view)
-               |   other    |                          
+               |   other    |
                +------------+             +------------+
     base       |    ret     |           0 |    ret     |
                +------------+   ---->     +------------+
@@ -173,8 +173,12 @@ new arguments of the function.
 
 ## Arrays
 
-    OP          A       B       C
+    OP          A       D
+
     NEWARRAY    dst     size
+
+    OP          A       B       C
+
     GETARRAY    dst     array   idx     dst = array[idx]
     SETARRAY    array   idx     val     array[idx] =  val
 
@@ -196,7 +200,7 @@ defines a function which has an additional vararg argument.
     OP      A       D
     BREAK   -       -
     EXIT    var     -
-    
+
 BREAK triggers a breakpoint. EXIT terminates the virtual machine, the variable
 in slot `var` indicates the status code. Nonzero status codes shall indicate
 abnormal termination.
