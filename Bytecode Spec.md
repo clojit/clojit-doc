@@ -22,7 +22,6 @@ Clojure Bytecode Spec
     CFLOAT  dst     float
     CBOOL   dst     bool
     CNIL    dst     nil
-    CFUNC   dst     fn
 
 Reads D from const. table (if required) and writes it into destination slot A.
 
@@ -147,14 +146,12 @@ vector B as argument for the function.
 FNEW creates new closure for the function referenced by `jump` in the variable
 slot `dst`.
 
-    OP          A       B       C
-    SETFREEVAR  dst     src     idx
-    GETFREEVAR  dst     src     idx
+    OP          A       D
+    SETFREEVAR  dst     idx
+    GETFREEVAR  dst     idx
 
-SETFREEVAR sets the free variable `idx` of closure `dst` to the value of
-the variable in `src`.
-GETFREEVAR copies the value of the free variable `idx` from the closure `src`
-into the variable in `dst`.
+SETFREEVAR sets the free variable `idx` to the value of the variable in `src`.
+GETFREEVAR copies the value of the free variable `idx` into the variable in `dst`.
 
 ## Tail Recursion and Loops
 
