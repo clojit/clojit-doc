@@ -12,7 +12,7 @@ Clojure Bytecode Spec
 - Constant String Table
 - Constant Keyword Table
 
-## Constant Value Operation
+## Constant Table Value Operation
 
     OP      A       D
 
@@ -20,10 +20,22 @@ Clojure Bytecode Spec
     CKEY    dst     keyword
     CINT    dst     int
     CFLOAT  dst     float
-    CBOOL   dst     bool
-    CNIL    dst     nil
+
 
 Reads D from const. table (if required) and writes it into destination slot A.
+
+
+## Constant Value Operation
+
+    OP      A       D
+
+    CBOOL   dst     bool
+    CNIL    dst     nil
+    CSHORT	dst	    lits
+
+Set A to 16 bit signed integer D
+
+
 
 ## Global Table Ops
 
