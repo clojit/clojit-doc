@@ -208,7 +208,7 @@ defines a function which has an additional vararg argument.
 
     OP      A       D
     BREAK   -       -
-    EXIT    var     -
+    EXIT    lit     -
 
 BREAK triggers a breakpoint. EXIT terminates the virtual machine, the variable
 in slot `var` indicates the status code. Nonzero status codes shall indicate
