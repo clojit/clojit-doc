@@ -159,10 +159,8 @@ FNEW creates new closure for the function referenced by `jump` in the variable
 slot `dst`.
 
     OP          A       D
-    SETFREEVAR  dst     idx
     GETFREEVAR  dst     idx
 
-SETFREEVAR sets the free variable `idx` to the value of the variable in `src`.
 GETFREEVAR copies the value of the free variable `idx` into the variable in `dst`.
 
 ## Tail Recursion and Loops
