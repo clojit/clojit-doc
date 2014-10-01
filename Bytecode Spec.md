@@ -163,6 +163,12 @@ slot `dst`.
 
 GETFREEVAR copies the value of the free variable `idx` into the variable in `dst`.
 
+    OP          A       D
+    UCLO        sslot   eslot
+
+Close upvalues for slots between sslot and eslot
+
+
 ## Tail Recursion and Loops
 
     OP          A       B       C
