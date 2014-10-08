@@ -29,8 +29,13 @@ Reads D from const. table (if required) and writes it into destination slot A.
 
     OP      A       D
 
-    CBOOL   dst     bool
-    CNIL    dst     nil
+    CBOOL   dst     bool (1 true, 0 false)
+    CNIL    dst     -
+
+Set A to constant
+
+    OP      A       D
+
     CSHORT	dst	    lits
 
 Set A to 16 bit signed integer D
