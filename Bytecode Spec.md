@@ -73,10 +73,10 @@ programming language such as Clojure.
     MULVV	dst	var	var	    A = B * C
     DIVVV	dst	var	var	    A = B / C
     MODVV	dst	var	var	    A = B % C
-    POWVV   	dst	var	var	    A = B ^ C
+    POWVV dst	var	var	    A = B ^ C
 
     ISLT	dst var	var	    A = B < C
-    ISGE	dst var	var         A = B ≥ C
+    ISGE	dst var	var     A = B ≥ C
     ISLE	dst var var	    A = B ≤ C
     ISGT	dst var var	    A = B > C
     ISEQ	dst var var	    A = B == C
