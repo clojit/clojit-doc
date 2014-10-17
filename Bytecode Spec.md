@@ -20,10 +20,9 @@ Clojure Bytecode Spec
     CKEY    dst     keyword
     CINT    dst     int
     CFLOAT  dst     float
-
+    CTYPE   dst     type
 
 Reads D from const. table (if required) and writes it into destination slot A.
-
 
 ## Constant Value Operation
 
@@ -157,8 +156,9 @@ vector B as argument for the function.
 
 ## Closures and Free Variables
 
-    OP      A       D
-    FNEW    dst     jump
+    OP       A       D
+    FNEW     dst     index
+    VFNEW    dst     index
 
 FNEW creates new closure for the function referenced by `jump` in the variable
 slot `dst`.
@@ -212,6 +212,28 @@ of arrays is 64bit. The array index `idx` is read from a variable slot, so is th
 FUNCF & FUNCV define a function with 'lit' fixed arguments. The FUNCV opcode
 defines a function which has an additional vararg argument.
 (defn [a b & c] ...) == FUNCV 2
+
+## Types
+
+    OP       A       D
+
+    ALLOC    dst     type
+
+ALLOC allocates the empty instance of Type D and puts a reference to into dst.
+
+    OP        A    B            C
+
+    SETFIELD  ref  offset(lit)  var
+
+SETFIELD writes var to the correct slot in instance referenced by A.
+
+
+    OP        A    D
+
+    GETFIELD  ref  offset(lit)
+
+GETFIELD writes var to the correct slot in instance referenced by A.
+
 
 ## Run-Time Behavior
 
