@@ -241,12 +241,15 @@ GETFIELD writes var to the correct slot in instance referenced by A.
     BREAK   -       -
     EXIT    lit     -
     DROP    var     var
+    TRANC   -       var
 
 BREAK triggers a breakpoint. EXIT terminates the virtual machine, the variable
 in slot `var` indicates the status code. Nonzero status codes shall indicate
 abnormal termination.
 
 DROP tells the VM that it can GC the values in slots A - D
+
+TRANC tells the VM that it can GC the values after slot D
 
 ## TODO
 
