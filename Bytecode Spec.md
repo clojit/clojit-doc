@@ -228,9 +228,9 @@ ALLOC allocates the empty instance of Type D and puts a reference to into dst.
 SETFIELD writes var to the correct slot in instance referenced by A.
 
 
-    OP        A    D
+    OP        A    B     C
 
-    GETFIELD  ref  offset(lit)
+    GETFIELD  dst  ref   offset(lit)
 
 GETFIELD writes var to the correct slot in instance referenced by A.
 
