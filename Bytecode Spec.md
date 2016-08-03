@@ -224,18 +224,33 @@ defines a function which has an additional vararg argument.
 
 ALLOC allocates the empty instance of Type D and puts a reference to into dst.
 
-    OP        A    B            C
+    OP         A    B            	C
 
-    SETFIELD  ref  offset(lit)  var
+    SETFIELD  ref  object offset(lit)  var
 
 SETFIELD writes var to the correct slot in instance referenced by A.
 
 
     OP        A    B     C
 
-    GETFIELD  dst  ref   offset(lit)
+    GETFIELD  dst  ref   object offset(lit)
 
-GETFIELD writes var to the correct slot in instance referenced by A.
+GETFIELD writes var to the dst (in A) slot from object in ref (B), lookup by offset into type date (in C).
+
+
+    OP		 A	B		C
+    LOOKUPFIELD  dst	object-ref	str arr offset(lit)
+
+LOOKUPFIELD Look up member from object-ref (in B) and write it into dst-slot (in A). Loopup matches field name of object (reference in B) and str (looked up in str-arry by offset in C)
+
+
+    var (in A) to dst-slot (in A) slot from object in ref (B), lookup by offset into str array. Then search member fields for match.
+
+    OP         	 A    		B            	   C
+
+    ASSIGNFIELD  object-ref  	str arr offset(lit)  var
+
+ASSIGNFIELD writes var (in C) to the slot at offset (in B) of object in object-ref (A).
 
 
 ## Run-Time Behavior
