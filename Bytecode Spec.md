@@ -43,10 +43,13 @@ Set A to 16 bit signed integer D
 
 ## Global Table Ops
 
+    OP       A      B            C
+
+    NSSETS   var    const-str    meta        ns[const-str] = (with-meta var)
+
     OP       A       D
 
-    NSSETS   var     const-str    ns[const-str] = var
-    NSGETS   dst     const-str    dst = ns[const-str]
+    NSGETS   dst     const-str               dst = ns[const-str]
 
 
 NSSETS creates top level definition called by constant table string D with value from A
